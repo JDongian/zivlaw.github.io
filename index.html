@@ -8,7 +8,7 @@
   <meta name="color-scheme" content="light dark">
   <link rel="icon" href="logo.jpg">
   <link rel="apple-touch-icon" href="logo.jpg">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
   <main class="frame">
@@ -18,7 +18,12 @@
     </header>
 
     <section class="hero">
-      <img class="logo" src="logo.jpg" alt="Ziv Law" width="200" height="200">
+      <img class="logo" id="logo" src="logo-animated.svg" alt="Ziv Law" width="260" height="130">
+      <script>
+        // Trace the signature on a fresh visit; on refresh just fade the logo in.
+        if (performance.getEntriesByType("navigation")[0]?.type === "reload")
+          document.getElementById("logo").src = "logo.svg";
+      </script>
       <div class="ctas">
         <a class="btn" href="mailto:ziv@zivlaw.co">Email Us</a>
         <a class="btn btn-icon" href="https://www.linkedin.com/in/ziv-shafir/" target="_blank" rel="noopener" aria-label="Ziv Shafir on LinkedIn">
@@ -34,7 +39,7 @@
     <footer class="info">
       <p class="name">Ziv Law &middot; Founded 2019</p>
       <div class="blurb">
-        <p>Ziv Law is a boutique law firm focused on emerging growth companies, particularly in the healthcare space. Our clients have collectively raised over $750 Million from top-tier venture capital funds. We serve as outside general counsel tackling all issues with a specialization in licensing and commercial agreements, as well as regulatory and privacy (including HIPAA) issues.</p>
+        <p>We are a boutique law firm focused on emerging growth companies, particularly in the healthcare space. Our clients have collectively raised over $750 Million from top-tier venture capital funds. We serve as outside general counsel tackling all issues with a specialization in licensing and commercial agreements, as well as regulatory and privacy (including HIPAA) issues.</p>
       </div>
     </footer>
   </main>
