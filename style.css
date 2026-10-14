@@ -75,6 +75,10 @@ html, body {
 .btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
 .btn-icon { width: 32px; padding: 0; }
 .btn-icon svg { width: 14px; height: 14px; fill: currentColor; }
+/* Touch screens have no hover to darken the icons, so show them at full strength. */
+@media (hover: none) {
+  .btn { color: var(--fg); }
+}
 
 .logo {
   width: 260px;
@@ -89,20 +93,56 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
   width: 100%;
   text-align: center;
 }
 
-.name { text-transform: uppercase; }
-
-.blurb {
-  display: flex;
+.name {
+  display: inline-flex;
   flex-direction: column;
-  gap: 1.2em;
+  align-items: center;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.name:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+
+.chev {
+  width: 12px;
+  height: 12px;
+  margin-top: 8px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  transition: height .3s ease, margin .3s ease, opacity .3s ease;
+}
+/* Opening is one-way: the chevron fades and collapses away. */
+.name[aria-expanded="true"] { cursor: default; }
+.name[aria-expanded="true"] .chev { height: 0; margin-top: 0; opacity: 0; }
+
+/* Collapsed by default; the chevron button opens it (rows 0fr -> 1fr animates the height). */
+.blurb {
+  display: grid;
+  grid-template-rows: 0fr;
   max-width: 500px;
   line-height: 1.5;
   text-wrap: pretty;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows .4s ease, opacity .4s ease, visibility 0s .4s;
+}
+.blurb > div { overflow: hidden; }
+.blurb p { padding-top: 12px; }
+.name[aria-expanded="true"] + .blurb {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 a {
@@ -126,4 +166,5 @@ a:hover { text-decoration-color: transparent; }
 
 @media (prefers-reduced-motion: reduce) {
   .clock, .hero, .info { animation: none; }
+  .blurb, .chev { transition: none; }
 }

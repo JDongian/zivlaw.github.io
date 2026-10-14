@@ -8,7 +8,7 @@
   <meta name="color-scheme" content="light dark">
   <link rel="icon" href="logo.jpg">
   <link rel="apple-touch-icon" href="logo.jpg">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
   <main class="frame">
@@ -25,7 +25,12 @@
           document.getElementById("logo").src = "logo.svg";
       </script>
       <div class="ctas">
-        <a class="btn" href="mailto:ziv@zivlaw.co">Email Us</a>
+        <a class="btn btn-icon" href="mailto:ziv@zivlaw.co" aria-label="Email ziv@zivlaw.co">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2.5" y="5" width="19" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/>
+            <path d="M3.5 6.5 12 13l8.5-6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+          </svg>
+        </a>
         <a class="btn btn-icon" href="https://www.linkedin.com/in/ziv-shafir/" target="_blank" rel="noopener" aria-label="Ziv Shafir on LinkedIn">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <rect x="2" y="9" width="4" height="13"/>
@@ -37,10 +42,20 @@
     </section>
 
     <footer class="info">
-      <p class="name">Ziv Law &middot; Founded 2019</p>
-      <div class="blurb">
-        <p>We are a boutique law firm focused on emerging growth companies, particularly in the healthcare space. Our clients have collectively raised over $750 Million from top-tier venture capital funds. We serve as outside general counsel tackling all issues with a specialization in licensing and commercial agreements, as well as regulatory and privacy (including HIPAA) issues.</p>
+      <button class="name" id="more" aria-expanded="false" aria-controls="blurb">
+        Ziv Law &middot; Founded 2019
+        <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>
+      </button>
+      <div class="blurb" id="blurb">
+        <div><p>We are a boutique law firm focused on emerging growth companies, particularly in the healthcare space. Our clients have collectively raised over $750 Million from top-tier venture capital funds. We serve as outside general counsel tackling all issues with a specialization in licensing and commercial agreements, as well as regulatory and privacy (including HIPAA) issues.</p></div>
       </div>
+      <script>
+        // Like the logo: collapsed on a fresh visit, already open on refresh.
+        const more = document.getElementById("more");
+        if (performance.getEntriesByType("navigation")[0]?.type === "reload")
+          more.setAttribute("aria-expanded", "true");
+        more.onclick = () => more.setAttribute("aria-expanded", "true");
+      </script>
     </footer>
   </main>
   <script src="clock.js" defer></script>
